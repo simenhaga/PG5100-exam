@@ -1,10 +1,9 @@
 package no.kristiania.exam.controller
 
 import no.kristiania.exam.models.entities.AnimalEntity
-import no.kristiania.exam.models.entities.UserEntity
 import no.kristiania.exam.service.AnimalService
 import no.kristiania.exam.service.RegisterAnimalDTO
-import no.kristiania.exam.service.RegisterUserDTO
+import no.kristiania.exam.service.UpdateAnimalDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -26,5 +25,11 @@ class ShelterController(@Autowired private val animalService: AnimalService) {
         val uri =
             URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/shelter/register").toUriString())
         return ResponseEntity.created(uri).body(animal)
+    }
+
+    @PutMapping("/update/{animal_id}")
+    fun updateAnimal(@RequestParam("animal_id") animalId: Long, @RequestBody animal: UpdateAnimalDTO
+    ) {
+        animalService.updateAnimalID(animal)
     }
 }
