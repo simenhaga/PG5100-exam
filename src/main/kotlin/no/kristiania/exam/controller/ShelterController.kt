@@ -28,8 +28,8 @@ class ShelterController(@Autowired private val animalService: AnimalService) {
 
     @PutMapping("/update/{animal_id}")
     fun updateAnimal(@PathVariable("animal_id") animalId: Long, @RequestBody animal: RegisterAnimalDTO
-    ) {
-        animalService.updateAnimalById(animal, animalId)
+    ): ResponseEntity<AnimalEntity> {
+        return ResponseEntity.ok(animalService.updateAnimalById(animal, animalId))
     }
 
     @GetMapping("/{animal_id}")

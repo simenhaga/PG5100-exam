@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @Configuration
 class SecurityConfig(
-    @Autowired private val userService: UserService, //Endret fra UserDetailService... Er det riktig? Fungerer resten av koden enda?
+    @Autowired private val userService: UserService,
     @Autowired private val passwordEncoder: BCryptPasswordEncoder
 ) : WebSecurityConfigurerAdapter() {
 

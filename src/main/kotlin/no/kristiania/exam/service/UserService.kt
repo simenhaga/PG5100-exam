@@ -37,11 +37,11 @@ class UserService(
         return authorityRepo.save(authorityName)
     }
 
-    fun grantAuthorityToUser(email: String?, authorityName: String?){
+    fun grantAuthorityToUser(email: String?, authorityName: String?): UserEntity {
         val user = userRepo.findByEmail(email)
         val authority = authorityRepo.findByName(authorityName)
         user.authorities.add(authority)
-        userRepo.save(user)
+        return userRepo.save(user)
     }
 
     fun getAuthorities(): List<String?>{
