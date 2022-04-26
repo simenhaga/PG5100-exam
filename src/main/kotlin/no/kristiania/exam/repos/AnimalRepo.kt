@@ -10,4 +10,6 @@ interface AnimalRepo: JpaRepository<AnimalEntity, Long> {
     fun findByName(name: String?): AnimalEntity
 
     fun findByAnimalId(animalId: Long?): AnimalEntity
+
+    override fun findAll(): MutableList<AnimalEntity>
 }
