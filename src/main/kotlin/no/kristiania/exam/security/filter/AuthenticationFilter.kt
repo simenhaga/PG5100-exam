@@ -23,8 +23,6 @@ class AuthenticationFilter(
     UsernamePasswordAuthenticationFilter() {
 
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
-
-        //val body = request.reader.lines().collect(Collectors.joining())
         val loginInfo = jacksonObjectMapper().readValue(request.inputStream, LoginInfo::class.java)
         val authenticationToken = UsernamePasswordAuthenticationToken(loginInfo.username, loginInfo.password)
         return authManager.authenticate(authenticationToken)
