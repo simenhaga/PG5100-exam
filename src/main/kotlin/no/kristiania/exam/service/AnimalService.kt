@@ -4,16 +4,15 @@ import no.kristiania.exam.models.entities.AnimalEntity
 import no.kristiania.exam.repos.AnimalRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class AnimalService(
     @Autowired private val animalRepo: AnimalRepo
 ){
 
-    fun getAnimalByName(name: String): AnimalEntity {
-        name.let {
-            return animalRepo.findByName(it)
-        }
+    fun getAnimalById(animalId: Long): AnimalEntity{
+        return animalRepo.getById(animalId)
     }
 
     fun registerAnimal(animal: RegisterAnimalDTO): AnimalEntity {
@@ -33,11 +32,11 @@ class AnimalService(
 
     fun updateAnimalById(animal: RegisterAnimalDTO, animalId: Long) {
         animalRepo.findByAnimalId(animalId)
-        animalRepo.save(AnimalEntity(animalId = animalId, name = animal.name, animalType = animal.animalType, animalAge = animal.animalAge, vaccinated = animal.vaccinated))
+        animalRepo.save(AnimalEntity(animalId = animalId, name = animal.name, animalType = animal.animalType, animalAge = animal.animalAge, vaccinated = animal.vaccinated, checkOutTime = animal.checkOutTime))
     }
 
-    fun deleteAnimal(animal: UpdateAnimalDTO) {
-        val animalToDelete = animalRepo.findByAnimalId(animal.animalId)
+    fun deleteAnimalById(animalId: Long) {
+        val animalToDelete = animalRepo.findByAnimalId(animalId)
         animalRepo.delete(animalToDelete)
     }
 
@@ -47,13 +46,6 @@ data class RegisterAnimalDTO(
     val name: String,
     val animalType: String,
     val animalAge: Int,
-    val vaccinated: Boolean
+    val vaccinated: Boolean,
+    val checkOutTime: LocalDateTime?
     )
-
-data class UpdateAnimalDTO(
-    val animalId: Long,
-    val name: String,
-    val animalType: String,
-    val animalAge: Int,
-    val vaccinated: Boolean
-)

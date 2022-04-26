@@ -3,7 +3,6 @@ package no.kristiania.exam.controller
 import no.kristiania.exam.models.entities.AnimalEntity
 import no.kristiania.exam.service.AnimalService
 import no.kristiania.exam.service.RegisterAnimalDTO
-import no.kristiania.exam.service.UpdateAnimalDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -33,9 +32,14 @@ class ShelterController(@Autowired private val animalService: AnimalService) {
         animalService.updateAnimalById(animal, animalId)
     }
 
+    @GetMapping("/{animal_id}")
+    fun getAnimalById(@PathVariable animal_id: Long): ResponseEntity<AnimalEntity> {
+        return ResponseEntity.ok().body(animalService.getAnimalById(animal_id))
+    }
+
     @DeleteMapping("/delete/{animal_id}")
-    fun deleteAnimal(@RequestParam("animal_id") animalId: Long, @RequestBody animal: UpdateAnimalDTO
+    fun deleteAnimal(@PathVariable("animal_id") animalId: Long
     ) {
-        animalService.deleteAnimal(animal)
+        animalService.deleteAnimalById(animalId)
     }
 }
