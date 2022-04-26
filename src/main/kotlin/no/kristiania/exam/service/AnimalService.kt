@@ -42,7 +42,6 @@ class AnimalService(
             animalRepo.delete(it)
         }
     }
-
 }
 
 data class RegisterAnimalDTO(

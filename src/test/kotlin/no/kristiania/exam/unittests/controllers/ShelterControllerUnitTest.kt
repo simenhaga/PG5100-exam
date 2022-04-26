@@ -102,7 +102,5 @@ class ShelterControllerUnitTest {
         mockMvc.get("/api/shelter/1"){}
             .andExpect { status { isOk() } }
             .andExpect { content { jsonPath("$.name", `is`("Money")) } }
-
-
     }
 }

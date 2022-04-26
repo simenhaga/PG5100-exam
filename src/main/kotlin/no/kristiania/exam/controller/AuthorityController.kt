@@ -17,7 +17,7 @@ class AuthorityController(@Autowired private val userService: UserService) {
     fun registerAuthority(@RequestBody authority: AuthorityEntity): ResponseEntity<AuthorityEntity> {
         val authorityEntity = userService.createAuthority(authority)
         val uri = URI.create(
-            ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/register/authority").toUriString()
+            ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/authority/create").toUriString()
         )
         return ResponseEntity.created(uri).body(authorityEntity)
     }
