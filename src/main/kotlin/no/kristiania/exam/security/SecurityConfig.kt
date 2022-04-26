@@ -2,6 +2,7 @@ package no.kristiania.exam.security
 
 import no.kristiania.exam.security.filter.AuthenticationFilter
 import no.kristiania.exam.security.filter.AuthorizationFilter
+import no.kristiania.exam.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -10,19 +11,18 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @EnableWebSecurity
 @Configuration
 class SecurityConfig(
-    @Autowired private val userDetailService: UserDetailsService,
+    @Autowired private val userService: UserService, //Endret fra UserDetailService... Er det riktig? Fungerer resten av koden enda?
     @Autowired private val passwordEncoder: BCryptPasswordEncoder
 ) : WebSecurityConfigurerAdapter() {
 
     override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder)
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder)
     }
 
     override fun configure(http: HttpSecurity) {

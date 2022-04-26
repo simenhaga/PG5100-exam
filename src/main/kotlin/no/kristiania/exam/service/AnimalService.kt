@@ -11,7 +11,7 @@ class AnimalService(
     @Autowired private val animalRepo: AnimalRepo
 ){
 
-    fun getAnimalById(animalId: Long): AnimalEntity{
+    fun getAnimalById(animalId: Long): AnimalEntity?{
         return animalRepo.getById(animalId)
     }
 
@@ -30,14 +30,17 @@ class AnimalService(
     }
 
 
-    fun updateAnimalById(animal: RegisterAnimalDTO, animalId: Long) {
-        animalRepo.findByAnimalId(animalId)
-        animalRepo.save(AnimalEntity(animalId = animalId, name = animal.name, animalType = animal.animalType, animalAge = animal.animalAge, vaccinated = animal.vaccinated, checkOutTime = animal.checkOutTime))
+    fun updateAnimalById(animal: RegisterAnimalDTO, animalId: Long): AnimalEntity? {
+        animalRepo.findByAnimalId(animalId) ?.let {
+            return animalRepo.save(AnimalEntity(animalId = animalId, name = animal.name, animalType = animal.animalType, animalAge = animal.animalAge, vaccinated = animal.vaccinated, checkOutTime = animal.checkOutTime))
+        }
+        return null;
     }
 
     fun deleteAnimalById(animalId: Long) {
-        val animalToDelete = animalRepo.findByAnimalId(animalId)
-        animalRepo.delete(animalToDelete)
+        animalRepo.findByAnimalId(animalId) ?.let {
+            animalRepo.delete(it)
+        }
     }
 
 }
