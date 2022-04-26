@@ -30,14 +30,15 @@ class AnimalService(
         return animalRepo.findAll()
     }
 
-    fun updateAnimal(animal: RegisterAnimalDTO) {
-        val oldAnimal: AnimalEntity = animalRepo.findByName(animal.name)
-        animalRepo.save(AnimalEntity(animalId = oldAnimal.animalId, name = animal.name, animalType = animal.animalType, animalAge = animal.animalAge, vaccinated = animal.vaccinated))
+
+    fun updateAnimalById(animal: RegisterAnimalDTO, animalId: Long) {
+        animalRepo.findByAnimalId(animalId)
+        animalRepo.save(AnimalEntity(animalId = animalId, name = animal.name, animalType = animal.animalType, animalAge = animal.animalAge, vaccinated = animal.vaccinated))
     }
 
-    fun updateAnimalID(animal: UpdateAnimalDTO) {
-        val oldAnimal = animalRepo.findByAnimalId(animal.animalId)
-        animalRepo.save(AnimalEntity(animalId = oldAnimal.animalId, name = animal.name, animalType = animal.animalType, animalAge = animal.animalAge, vaccinated = animal.vaccinated))
+    fun deleteAnimal(animal: UpdateAnimalDTO) {
+        val animalToDelete = animalRepo.findByAnimalId(animal.animalId)
+        animalRepo.delete(animalToDelete)
     }
 
 }

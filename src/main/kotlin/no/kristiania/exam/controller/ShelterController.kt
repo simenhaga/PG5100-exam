@@ -28,8 +28,14 @@ class ShelterController(@Autowired private val animalService: AnimalService) {
     }
 
     @PutMapping("/update/{animal_id}")
-    fun updateAnimal(@RequestParam("animal_id") animalId: Long, @RequestBody animal: UpdateAnimalDTO
+    fun updateAnimal(@PathVariable("animal_id") animalId: Long, @RequestBody animal: RegisterAnimalDTO
     ) {
-        animalService.updateAnimalID(animal)
+        animalService.updateAnimalById(animal, animalId)
+    }
+
+    @DeleteMapping("/delete/{animal_id}")
+    fun deleteAnimal(@RequestParam("animal_id") animalId: Long, @RequestBody animal: UpdateAnimalDTO
+    ) {
+        animalService.deleteAnimal(animal)
     }
 }

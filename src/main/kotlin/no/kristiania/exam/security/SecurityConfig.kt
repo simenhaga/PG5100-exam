@@ -34,6 +34,7 @@ class SecurityConfig(
             .antMatchers("/api/login").permitAll()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/user/**").hasAnyAuthority("USER", "ADMIN")
+            .antMatchers("/api/shelter/**").hasAnyAuthority("USER", "ADMIN")
             .antMatchers("/api/authority/**").hasAuthority("ADMIN")
             .and().formLogin()
         http.authorizeRequests().anyRequest().authenticated()
